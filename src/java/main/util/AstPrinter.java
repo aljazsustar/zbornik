@@ -4,7 +4,7 @@ import main.parser.Expr;
 
 public class AstPrinter implements Expr.Visitor<String> {
 
-    String print(Expr expr) {
+    public String print(Expr expr) {
         return expr.accept(this);
     }
     @Override
@@ -14,7 +14,7 @@ public class AstPrinter implements Expr.Visitor<String> {
 
     @Override
     public String visitGroupingExpr(Expr.Grouping expr) {
-        return parenthesize("grouop", expr.expression);
+        return parenthesize("group", expr.expression);
     }
 
     @Override

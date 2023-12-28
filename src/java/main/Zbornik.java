@@ -1,7 +1,11 @@
 package main;
 
+import main.parser.Expr;
+import main.parser.Parser;
 import main.scanner.Scanner;
 import main.scanner.Token;
+import main.scanner.TokenType;
+import main.util.AstPrinter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -59,14 +63,21 @@ public class Zbornik {
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
 
-        for (Token token : tokens) {
-            System.out.println(token);
-        }
+        Parser parser = new Parser(tokens);
+        Expr expression = parser.parse();
+
+        if (hadError) return;
+
+        System.out.println(new AstPrinter().print(expression));
     }
 
     public static void error(int line, String message) {
         report(line, "", message);
     }
+     public static void error(Token token, String message) {
+        if (token.type == TokenType.EOF) report(token.line, " na koncu", message);
+        else report(token.line, " pri " + token.lexeme + "'", message);
+     }
 
     private static void report(int line, String where, String message) {
         System.err.println("[line " + line + "] Error" + where + ": " + message);
