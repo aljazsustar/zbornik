@@ -43,6 +43,7 @@ public class Scanner {
         keywords.put("manjsi od", MANJSI);
         keywords.put("manjsi ali enak", MANJSI_ALI_ENAK);
         keywords.put("ni enak", NI_ENAK);
+        keywords.put("enak", ENAK);
     }
 
     public Scanner(String source) {
